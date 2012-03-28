@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from tagging.fields import TagField
 from markdown import markdown
 
+
+
 class Category(models.Model):
     title = models.CharField(max_length=250, 
                              help_text='Maximum 250 characters')
@@ -21,6 +23,16 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return "categories/%s/ % self.slug"
+
+    def live_entry_set(self):
+        from coltrane.models import Entry
+        return self.entry_set.filter(status=Entry.LIVE_STATUS)
+
+
+
+class LiveEntryManager(models.Manager):
+    def get_query_set(self):
+        return super(LiveEntryManager, self).get_query_set().filter(status=self.model.LIVE_STATUS)
 
 
 
@@ -57,6 +69,9 @@ class Entry(models.Model):
     categories = models.ManyToManyField(Category)
     tags = TagField()
 
+    # Managers.
+    live = LiveEntryManager()
+    objects = models.Manager()
 
     class Meta:
         verbose_name_plural = "Entries"
@@ -119,11 +134,12 @@ class Link(models.Model):
         if self.description:
             self.description_html = markdown(self.description)
         
-        if not self.id and self.port_elsewhere:
+        if not self.id and self.post_elsewhere:
             import pydelicious
             from django.utils.encoding import smart_str
-            pydelicious.add(settings.DELICIOUS_USER, settings.DECLICIOUS_PASSWORD,
-                            smart_str(self.url), smart_str(self.title), smart_str(self.tags))
+            # warning: the following line goes into an infinite loop if user/pass combo doesn't work
+            #pydelicious.add(settings.DELICIOUS_USER, settings.DELICIOUS_PASSWORD,
+            #                smart_str(self.url), smart_str(self.title), smart_str(self.tags))
 
         super(Link, self).save()
         

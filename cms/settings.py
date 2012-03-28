@@ -88,3 +88,6 @@ INSTALLED_APPS = (
     'coltrane',
     'tagging',
 )
+
+DELICIOUS_USER = 'test'
+DELICIOUS_PASSWORD = 'test'

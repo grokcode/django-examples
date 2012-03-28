@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from coltrane.models import Entry
 
 entry_info_dict =  {
-    'queryset': Entry.objects.all(),
+    'queryset': Entry.live.all(),
     'date_field': 'pub_date',
 }
 
@@ -28,6 +28,3 @@ urlpatterns = patterns('django.views.generic.date_based',
                         entry_info_dict,
                         'coltrane_entry_detail'),
                        )
-
-
-                  
