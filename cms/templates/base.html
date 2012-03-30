@@ -16,8 +16,8 @@
       <ul id="main-nav">
 	<li id="main-nav-entries"><a href="{% url coltrane_entry_archive_index %}">Entries</a></li>
 	<li id="main-nav-links"><a href="{% url coltrane_link_archive_index %}">Links</a></li>
-	<li id="main-nav-categories"><a href="{% comment %} {% url coltrane_category_list %} {% endcomment %}">Categories</a></li>
-	<li id="main-nav-tags"><a href="{% comment %} {% url coltrane_tag_list %} {% endcomment %}">Tags</a></li>
+	<li id="main-nav-categories"><a href="{% url coltrane_category_list %}">Categories</a></li>
+	<li id="main-nav-tags"><a href="{% url coltrane_tag_list %}">Tags</a></li>
       </ul>
       <h2>What is this?</h2>
       {% block whatis %}

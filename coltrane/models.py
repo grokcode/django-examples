@@ -22,7 +22,7 @@ class Category(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "categories/%s/ % self.slug"
+        return "/categories/%s/" % self.slug
 
     def live_entry_set(self):
         from coltrane.models import Entry
