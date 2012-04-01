@@ -1,0 +1,21 @@
+{% extends "base_categories.html" %}
+
+{% block title %}{{ block.super }} | {{ category }}{% endblock %}
+
+{% block content %}
+  <h2>Entries in the {{ category }} category</h2>
+  {% for entry in object_list %}
+    <h2>{{ entry.title }}</h2>
+    <p>Published on {{ entry.pub_date|date:"F j, Y" }}</p>
+    {% if entry.excerpt_html %}
+      {{ entry.excerpt_html|safe }}
+    {% else %}
+      {{ entry.body_html|truncatewords_html:"50"|safe }}
+    {% endif %}
+    <p><a href="{{ entry.get_absolute_url }}">Read full entry. . .</a></p>
+  {% endfor %}
+{% endblock %}
+
+{% block whatis %}
+  <p>This is a list of entries in category {{ category }}.</p>
+{% endblock %}

@@ -11,5 +11,6 @@ def entries_index(request):
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
     return object_list(request, queryset=category.live_entry_set(),
-                       extra_context={'category': category })
+                       extra_context={'category': category },
+                       template_name='coltrane/category_detail.html')
 
