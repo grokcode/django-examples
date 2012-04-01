@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'cms.search',
     'coltrane',
+    'coltrane.templatetags',
     'tagging',
 )
 

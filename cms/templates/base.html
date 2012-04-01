@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
     <title>My weblog {% block title %}{% endblock %}</title>
+    <link rel='stylesheet' href='/frontend-media/style.css' type='text/css' />
   </head>
   <body class="{% block bodyclass %}{% endblock %}">
     <div id="header"></div>
@@ -22,6 +23,28 @@
       <h2>What is this?</h2>
       {% block whatis %}
       {% endblock %}
+
+      {% load coltrane_tags %}
+      <h2>Latest entries in the weblog</h2>
+      <ul>
+	{% get_latest_content coltrane.entry 5 as latest_entries %}
+	{% for entry in latest_entries %}
+          <li>
+	    <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>, posted {{ entry.pub_date|timesince }} ago.
+	  </li>
+	{% endfor %}
+      </ul>
+      <h2>Latest links in the weblog</h2>
+      <ul>
+	{% get_latest_content coltrane.link 5 as latest_links %}
+	{% for link in latest_links %}
+	  <li>
+	    <a href="{{ link.get_absolute_url }}">{{ link.title }}</a>, posted {{ link.pub_date|timesince }} ago.
+	  </li>
+	  {% endfor %}
+      </ul>
+
     </div>
+
   </body>
 </html>

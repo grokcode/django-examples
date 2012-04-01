@@ -154,5 +154,5 @@ class Link(models.Model):
                   'day': self.pub_date.strftime('%d'),
                   'slug': self.slug })
 
-    get_absulute_url = models.permalink(get_absolute_url)
+    get_absolute_url = models.permalink(get_absolute_url)
 
