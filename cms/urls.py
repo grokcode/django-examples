@@ -1,8 +1,13 @@
 from django.conf.urls.defaults import *
+from coltrane.feeds import LatestEntriesFeed, LatestLinksFeed
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+
+feeds = { 'entries': LatestEntriesFeed, 
+          'links' : LatestLinksFeed
+}
 
 urlpatterns = patterns('',
                        (r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -13,6 +18,9 @@ urlpatterns = patterns('',
                         { 'document_root': '/home/smudge/work/django-practice/cms/scripts/tiny_mce/' }),
                        (r'^search/$', 'cms.search.views.search'),
                        (r'^comments/', include('django.contrib.comments.urls')),
+                       (r'^feeds/(?P<url>.*)/$',
+                        'django.contrib.syndication.views.feed',
+                        { 'feed_dict': feeds }),
                        (r'^weblog/categories/', include('coltrane.urls.categories')),
                        (r'^weblog/links/', include('coltrane.urls.links')),
                        (r'^weblog/tags/', include('coltrane.urls.tags')),    
