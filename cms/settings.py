@@ -79,11 +79,13 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.comments',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admindocs',
     'django.contrib.admin',
     'django.contrib.flatpages',
+    'django.contrib.markup',
     'cms.search',
     'coltrane',
     'coltrane.templatetags',
@@ -92,3 +94,5 @@ INSTALLED_APPS = (
 
 DELICIOUS_USER = 'test'
 DELICIOUS_PASSWORD = 'test'
+
+AKISMET_API_KEY = '58b2d32abf94'

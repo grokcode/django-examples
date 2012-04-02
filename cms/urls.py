@@ -12,8 +12,7 @@ urlpatterns = patterns('',
                        (r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve',
                         { 'document_root': '/home/smudge/work/django-practice/cms/scripts/tiny_mce/' }),
                        (r'^search/$', 'cms.search.views.search'),
-               
-
+                       (r'^comments/', include('django.contrib.comments.urls')),
                        (r'^weblog/categories/', include('coltrane.urls.categories')),
                        (r'^weblog/links/', include('coltrane.urls.links')),
                        (r'^weblog/tags/', include('coltrane.urls.tags')),    
