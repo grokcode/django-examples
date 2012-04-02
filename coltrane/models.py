@@ -164,6 +164,7 @@ from django.db.models import signals
 from akismet import Akismet
 from django.utils.encoding import smart_str
 from django.contrib.comments.signals import comment_will_be_posted
+from django.core.mail import mail_managers
 
 
 def moderate_comment(sender, comment, request, **kwargs):
@@ -177,18 +178,26 @@ def moderate_comment(sender, comment, request, **kwargs):
             comment.is_public = False
 
         # Run akismet on other comments.
-        akismet_api = Akismet(key=settings.AKISMET_API_KEY, 
-                              blog_url="http://%s/" % Site.objects.get_current().domain)
+        else:
+            akismet_api = Akismet(key=settings.AKISMET_API_KEY, 
+                                  blog_url="http://%s/" % Site.objects.get_current().domain)
 
-        if akismet_api.verify_key():
-            akismet_data = { 'comment_type': 'comment',
-                             'referrer': request.META['HTTP_REFERER'],
-                             'user_ip': comment.ip_address,
-                             'user_agent': request.META['HTTP_USER_AGENT'] }
-            if akismet_api.comment_check(smart_str(comment.comment),
-                                         akismet_data,
-                                         build_data=True):
-                comment.is_public = False
+            if akismet_api.verify_key():
+                akismet_data = { 'comment_type': 'comment',
+                                 'referrer': request.META['HTTP_REFERER'],
+                                 'user_ip': comment.ip_address,
+                                 'user_agent': request.META['HTTP_USER_AGENT'] }
+                if akismet_api.comment_check(smart_str(comment.comment),
+                                             akismet_data,
+                                             build_data=True):
+                    comment.is_public = False
+                    
+        # Notify of new comments.
+        email_body = "%s posted a new comment on the entry '%s'"
+        mail_managers("New comment posted",
+                      email_body % (comment.name, comment.content_object),
+                      fail_silently = True)
+            
 
 
 comment_will_be_posted.connect(moderate_comment, sender=Comment)

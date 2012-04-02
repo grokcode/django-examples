@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+     ('Jess Johnson', 'jess@grokcode.com'),
 )
 
 ADMIN_FOR = (
@@ -96,3 +96,8 @@ DELICIOUS_USER = 'test'
 DELICIOUS_PASSWORD = 'test'
 
 AKISMET_API_KEY = '58b2d32abf94'
+
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = '25'
+DEFAULT_FROM_EMAIL = 'jess@localhost'
