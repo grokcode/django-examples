@@ -73,3 +73,19 @@ class Snippet(models.Model):
 
 
 
+class Bookmark(models.Model):
+    
+    snippet = models.ForeignKey(Snippet)
+    user = models.ForeignKey(User, related_name='cab_bookmarks')
+    date = models.DateTimeField(editable=False)
+
+    class Meta:
+        ordering = ['-date']
+
+    def __unicode__(self):
+        return "%s bookmarked by %s" % (self.snippet, self.user)
+
+    def save(self):
+        if not self.id:
+            self.date = datetime.datetime.now()
+        super(Bookmark, self).save()
