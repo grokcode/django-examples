@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | {{ object.name }} Language Snippets{% endblock %}
+
+{% block content %}
+
+  {% for snip in object_list %}
+    <h2>{{ snip.title }}</h2>
+    <p>In language {{ snip.language }}.</p>
+    {{ snip.description_html|safe }}
+    <a href="{{ snip.get_absolute_url }}">View snippet</a>
+  {% endfor %}
+
+{% endblock %}

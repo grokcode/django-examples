@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}{{ block.super }} | Snippet List{% endblock %}
+{% block title %}{{ block.super }} | Language List{% endblock %}
 
 {% block content %}
 
-  {% for snip in object_list %}
-    <h2>{{ snip.title }}</h2>
-    <p>In language {{ snip.language }}.</p>
-    {{ snip.description_html|safe }}
-    <a href="{{ snip.get_absolute_url }}">View snippet</a>
-  {% endfor %}
+  <h2>View snippets in these languages</h2>
+  <ul>
+    {% for lang in object_list %}
+      <li><a href="{{ lang.get_absolute_url }}">{{ lang.name }}</a></li>
+    {% endfor %}
+  </ul>
 
   <p>Page {{ page }};
   {% if page.has_previous %}
