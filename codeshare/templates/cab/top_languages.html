@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | Top Languages{% endblock %}
+
+{% block content %}
+
+  <h2>Top Languages</h2>
+  <ul>
+    {% for lang in object_list %}
+      <li><a href="{% url cab_language_detail lang.slug %}">{{ lang.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <p>Page {{ page }};
+  {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}">Previous page</a>
+  {% endif %}
+  {% if page.has_next_page %}
+    <a href="?page={{ page.next_page_number }}">Next page</a>
+  {% endif %}</p>
+
+{% endblock %}

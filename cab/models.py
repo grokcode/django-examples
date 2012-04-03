@@ -14,6 +14,9 @@ class Language(models.Model):
     language_code = models.CharField(max_length=50)
     mime_type = models.CharField(max_length=100)
 
+    # Managers.
+    objects = managers.LanguageManager()
+
     class Meta:
         ordering = ['name']
 
