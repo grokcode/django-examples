@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | Snippet {{ object.title}}{% endblock %}
+
+{% block content %}
+
+  <h2>{{ object.title }}</h2>
+  <p>In language {{ object.language }}, by {{ object.author }}. 
+     First published: {{ object.pub_date|date:"F j, Y" }}, 
+     last updated {{ object.updated_date|date:"F j, Y" }}</p>
+  {{ object.description_html|safe }}
+  {{ object.highlighted_code|safe }}
+
+{% endblock %}

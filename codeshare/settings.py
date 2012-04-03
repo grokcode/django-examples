@@ -1,20 +1,16 @@
-# Django settings for cms project.
+# Django settings for codeshare project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('Jess Johnson', 'jess@grokcode.com'),
-)
-
-ADMIN_FOR = (
-    
+    # ('Your Name', 'your_email@domain.com'),
 )
 
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = '/home/smudge/work/django-practice/cms/cms.db'             # Or path to database file if using sqlite3.
+DATABASE_NAME = '/home/smudge/work/django-practice/codeshare/cms.db'             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -52,7 +48,7 @@ MEDIA_URL = ''
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'gpkc*56i8d#vg2-&%(=7(jnyola3-008iv2d%^7o5u!_t$0cb$'
+SECRET_KEY = 'okx0x!5fcq4x7$2s#j-+#ni4(oj0f&hdd)c%c!jm1v%it=yh23'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -67,38 +63,22 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'cms.urls'
+ROOT_URLCONF = 'codeshare.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/smudge/work/django-practice/cms/templates/',
+    '/home/smudge/work/django-practice/codeshare/templates/',
 )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.contenttypes',
-    'django.contrib.comments',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.admindocs',
-    'django.contrib.admin',
-    'django.contrib.flatpages',
-    'django.contrib.markup',
-    'cms.search',
-    'coltrane',
-    'coltrane.templatetags',
+    'cab',
     'tagging',
-)
-
-DELICIOUS_USER = 'test'
-DELICIOUS_PASSWORD = 'test'
-
-AKISMET_API_KEY = '58b2d32abf94'
-
-
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = '25'
-DEFAULT_FROM_EMAIL = 'jess@localhost'
+    )

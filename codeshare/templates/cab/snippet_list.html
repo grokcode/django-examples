@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | Snippet List{% endblock %}
+
+{% block content %}
+
+  {% for snip in object_list %}
+    <h2>{{ snip.title }}</h2>
+    <p>In language {{ snip.language }}.</p>
+    {{ snip.description_html|safe }}
+    <a href="{{ snip.get_absolute_url }}">View snippit</a>
+  {% endfor %}
+
+  <p>{{ page }};
+  {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}">Previous page</a>
+  {% endif %}
+  {% if page.has_next_page %}
+    <a href="?page={{ page.next_page_number }}">Next page</a>
+  {% endif %}</p>
+
+{% endblock %}
