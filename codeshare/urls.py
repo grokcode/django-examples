@@ -10,4 +10,5 @@ urlpatterns = patterns('',
                         { 'document_root': '/home/smudge/work/django-practice/codeshare/templates/media/' }),
                        (r'^snippets/', include('cab.urls.snippets')),
                        (r'^languages/', include('cab.urls.languages')),
+                       (r'^popular/', include('cab.urls.popular')),
                        )
