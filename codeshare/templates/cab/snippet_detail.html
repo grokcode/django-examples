@@ -9,7 +9,8 @@
      First published: {{ object.pub_date|date:"F j, Y" }}, 
      last updated {{ object.updated_date|date:"F j, Y" }}</p>
   
-  {% load snippets %}   
+  {% load snippets %} 
+  
   {% if_bookmarked user object %}
     <form method="post" action="{% url cab_bookmark_delete object.id %}">
       <p><input type="submit" value="Delete bookmark"></p>
@@ -17,6 +18,15 @@
   {% else %}
     <p><a href="{% url cab_bookmark_add snippet_id=object.id %}">Add bookmark</a></p>
   {% endif_bookmarked %}
+
+  <p>This snippet has been rated {{ object.get_score.rating__sum }}</p>
+   <p>Rate snippet: 
+      <a href="{% url cab_snippet_rate snippet_id=object.id %}?rating=1">up</a> or 
+      <a href="{% url cab_snippet_rate snippet_id=object.id %}?rating=-1">down</a></p> 
+  {% if_rated user object %}
+    {% get_rating user object as rating %}
+    <p>You rated this snippet <strong>{{ rating.get_rating_display }}</strong>.</p>
+  {% endif_rated %}
 
   {{ object.description_html|safe }}
   {{ object.highlighted_code|safe }}

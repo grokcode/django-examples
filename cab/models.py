@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.contrib.auth.models import User
 from pygments import lexers, formatters, highlight
 from tagging.fields import TagField
@@ -71,6 +72,9 @@ class Snippet(models.Model):
                          self.language.get_lexer(),
                          formatters.HtmlFormatter(linenos=True))
 
+    def get_score(self):
+        return self.rating_set.aggregate(Sum('rating'))
+
 
 
 class Bookmark(models.Model):
@@ -89,3 +93,25 @@ class Bookmark(models.Model):
         if not self.id:
             self.date = datetime.datetime.now()
         super(Bookmark, self).save(*args, **kwargs)
+
+
+
+class Rating(models.Model):
+    
+    RATING_UP = 1
+    RATING_DOWN = -1
+    RATING_CHOICES = ((RATING_UP, 'useful'),
+                      (RATING_DOWN, 'not useful'))
+
+    snippet = models.ForeignKey(Snippet)
+    user = models.ForeignKey(User, related_name='cab_rating')
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    date = models.DateTimeField()
+
+    def __unicode__(self):
+        return "%s rating %s (%s)" % (self.user, self.snippet, self.get_rating_display())
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.date = datetime.datetime.now()
+        super(Rating, self).save(*args, **kwargs)

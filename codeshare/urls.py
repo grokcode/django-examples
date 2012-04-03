@@ -11,5 +11,6 @@ urlpatterns = patterns('',
                        (r'^snippets/', include('cab.urls.snippets')),
                        (r'^languages/', include('cab.urls.languages')),
                        (r'^popular/', include('cab.urls.popular')),
-                       (r'^bookmarks/', include('cab.urls.bookmarks'))
+                       (r'^bookmarks/', include('cab.urls.bookmarks')),
+                       (r'^ratings/', include('cab.urls.ratings')),
                        )
