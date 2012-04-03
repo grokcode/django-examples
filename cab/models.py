@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from pygments import lexers, formatters, highlight
 from tagging.fields import TagField
 from markdown import markdown
+from cab import managers
 import datetime
 
 
@@ -40,6 +41,9 @@ class Snippet(models.Model):
     tags = TagField()
     pub_date = models.DateTimeField(editable=False)
     updated_date = models.DateTimeField(editable=False)
+
+    # Managers.
+    objects = managers.SnippetManager()
 
     class Meta:
         ordering = ['-pub_date']
