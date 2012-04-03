@@ -13,3 +13,9 @@ def top_languages(request):
                        queryset=Language.objects.top_languages(),
                        template_name='cab/top_languages.html',
                        paginate_by=20)
+
+def most_bookmarked(request):
+    return object_list(request,
+                       queryset=Snippet.objects.most_bookmarked(),
+                       template_name='cab/most_bookmarked.html',
+                       paginate_by=20)

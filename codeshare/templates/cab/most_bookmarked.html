@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | Most Bookmarked Snippets{% endblock %}
+
+{% block content %}
+
+  <h2>Most Bookmarked Snippets</h2>
+ 
+  {% for snip in object_list %}
+    <h2>{{ snip.title }}</h2>
+    <p>In language {{ snip.language }}.</p>
+    {{ snip.description_html|safe }}
+    <a href="{{ snip.get_absolute_url }}">View snippet</a>
+  {% endfor %}
+
+  <p>Page {{ page }};
+  {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}">Previous page</a>
+  {% endif %}
+  {% if page.has_next_page %}
+    <a href="?page={{ page.next_page_number }}">Next page</a>
+  {% endif %}</p>
+
+{% endblock %}

@@ -85,7 +85,7 @@ class Bookmark(models.Model):
     def __unicode__(self):
         return "%s bookmarked by %s" % (self.snippet, self.user)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.id:
             self.date = datetime.datetime.now()
-        super(Bookmark, self).save()
+        super(Bookmark, self).save(*args, **kwargs)
