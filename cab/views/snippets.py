@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.template import RequestContext
 from cab.models import Snippet
 
 
@@ -25,7 +26,9 @@ def add_snippet(request):
     else:
         form = SnippetForm()
     return render_to_response('cab/snippet_form.html', 
-                              { 'form': form, 'add': True })
+                              { 'form': form, 'add': True },
+                              context_instance=RequestContext(request))
+
 
 add_snippet = login_required(add_snippet)
 
@@ -45,6 +48,8 @@ def edit_snippet(request, snippet_id):
     else:
         form = SnippetForm(instance=snippet)
     return render_to_response('cab/snippet_form.html',
-                              {'form': form, 'add': False})
+                              {'form': form, 'add': False},
+                              context_instance=RequestContext(request))
+
     
 edit_snippet = login_required(edit_snippet)

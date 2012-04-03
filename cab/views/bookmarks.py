@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list_detail import object_list
+from django.template import RequestContext
 from cab.models import Bookmark, Snippet
 
 
@@ -32,7 +33,9 @@ def delete_bookmark(request, snippet_id):
         return HttpResponseRedirect(snippet.get_absolute_url())
     else:
         return render_to_response('cab/confirm_bookmark_delete.html',
-                                  {'snippet': snippet})
+                                  {'snippet': snippet},
+                                  context_instance=RequestContext(request))
+
 delete_bookmark = login_required(delete_bookmark)
         
 
